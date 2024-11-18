@@ -19,7 +19,7 @@ export const Header = () => {
             <Link to="/">
                 <CustomButton variant="contained" color="grey" name="Home" />
             </Link>
-            <Link to="/auth">
+            <Link to="auth">
                 <CustomButton variant="contained" color="grey" name="Auth"/>
             </Link>
         </StyledHeader>
