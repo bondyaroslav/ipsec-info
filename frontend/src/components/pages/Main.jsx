@@ -1,9 +1,10 @@
 import React from 'react'
+import { ContentCard } from '../organisms/ContentCard.jsx'
 import { InfoCard } from '../molecules/InfoCard.jsx'
 import { CodeBlock } from '../molecules/CodeBlock.jsx'
-import { styled } from '@mui/material'
 import { Title } from '../atoms/Title.jsx'
 import { complexCodeBlocks } from '../../assets/codeBlocks.js'
+import { styled } from '@mui/material'
 
 const StyledMain = styled('main')`
     width: 100%;
@@ -16,25 +17,10 @@ const StyledMain = styled('main')`
     }
 `
 
-const StyledCard = styled('section')`
-    width: 100%;
-    max-width: 900px;
-    min-width: 250px;
-    border: 1px solid #454545;
-    border-radius: 8px;
-    margin: 0 16px 16px 0; 
-    padding: 16px;
-    box-sizing: border-box;
-
-    @media (max-width: 600px) {
-        padding: 12px;
-    }
-`
-
 export const Main = () => {
     return (
         <StyledMain>
-            <StyledCard>
+            <ContentCard>
                 <Title variant="h4">Quick start</Title>
                 <InfoCard>
                     First, prepare your Linux server* with an install of Ubuntu, Debian or CentOS.
@@ -43,9 +29,9 @@ export const Main = () => {
                 <CodeBlock>
                     wget https://get.vpnsetup.net -O vpn.sh && sudo sh vpn.sh
                 </CodeBlock>
-            </StyledCard>
+            </ContentCard>
 
-            <StyledCard>
+            <ContentCard>
                 <Title variant="h4">Installation</Title>
                 <InfoCard>First, update your server with (Ubuntu/Debian):</InfoCard>
                 <CodeBlock>sudo apt-get update && sudo apt-get dist-upgrade</CodeBlock>
@@ -77,7 +63,7 @@ export const Main = () => {
                 <CodeBlock>
                     {complexCodeBlocks.option3}
                 </CodeBlock>
-            </StyledCard>
+            </ContentCard>
         </StyledMain>
     )
 }
