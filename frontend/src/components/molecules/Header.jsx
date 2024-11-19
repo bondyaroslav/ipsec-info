@@ -5,12 +5,17 @@ import { styled } from '@mui/material'
 
 const StyledHeader = styled('nav')`
     display: flex;
-    width: 900px;
+    max-width: 900px;
+    min-width: 250px;
     height: 60px;
     background-color: #121212; 
     border: 2px solid #787878;
     border-radius: 8px;
-    margin-top: 8px;
+    margin: 8px 0 8px 0;
+
+    @media (max-width: 600px) {
+        margin: 8px 8px 0 8px;
+    }
 `
 
 export const Header = () => {

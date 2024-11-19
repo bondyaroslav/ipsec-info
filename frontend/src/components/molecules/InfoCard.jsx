@@ -3,6 +3,7 @@ import { styled } from '@mui/material'
 
 const StyledInfoCard = styled('article')`
     max-width: 100%;
+    min-width: 250px;
     border-radius: 8px;
     background-color: #2f2f2f;
     color: #d1d1d1;

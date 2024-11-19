@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { styled, Typography } from '@mui/material'
+import { Box, styled, Typography } from '@mui/material'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import DoneIcon from '@mui/icons-material/Done';
 import { Notification } from '../atoms/Notification.jsx'
@@ -8,6 +8,7 @@ const StyledCodeBlock = styled('article')(({ isClicked }) => ({
     display: 'flex',
     justifyContent: 'space-between',
     maxWidth: '100%',
+    minWidth: '250px',
     borderRadius: '8px',
     backgroundColor: isClicked ? '#2a292b' : '#201f21',
     color: '#d1d1d1',
@@ -15,6 +16,7 @@ const StyledCodeBlock = styled('article')(({ isClicked }) => ({
     margin: '16px',
     cursor: 'pointer',
     transition: 'background-color 0.3s, color 0.3s',
+    overflow: 'auto',
     '&:hover': {
         backgroundColor: isClicked ? '#323132' : '#282728',
         color: '#9e9e9e',
@@ -45,8 +47,11 @@ export const CodeBlock = ({ children }) => {
                 />
             )}
             <StyledCodeBlock isClicked={isClicked} onClick={handleCopy}>
-                <Typography component="pre">{children}</Typography>
-                {isClicked ? <DoneIcon/> : <ContentCopyIcon/>}
+                <Typography
+                    component="pre"
+                    sx={{ maxWidth: '100%', overflowX: 'auto' }}
+                >{children}</Typography>
+                {isClicked ? <DoneIcon/> : <ContentCopyIcon />}
             </StyledCodeBlock>
         </>
     )

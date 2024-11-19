@@ -1,7 +1,7 @@
 export const complexCodeBlocks = {
-    option2: `wget https://get.vpnsetup.net -O vpn.sh
-nano -w vpn.sh
-[Replace with your own values: YOUR_IPSEC_PSK, YOUR_USERNAME and YOUR_PASSWORD]
+    option2: `wget https://get.vpnsetup.net -O vpn.sh 
+nano -w vpn.sh 
+[Replace with your own values: YOUR_IPSEC_PSK, YOUR_USERNAME and YOUR_PASSWORD] 
 sudo sh vpn.sh
 `,
     option3: `# All values MUST be placed inside 'single quotes'

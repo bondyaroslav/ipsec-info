@@ -6,14 +6,29 @@ import { Title } from '../atoms/Title.jsx'
 import { complexCodeBlocks } from '../../assets/codeBlocks.js'
 
 const StyledMain = styled('main')`
-    width: 900px;
+    width: 100%;
+    max-width: 900px;
+    min-width: 250px;
+    box-sizing: border-box;
+
+    @media (max-width: 600px) {
+        padding: 8px;
+    }
 `
 
 const StyledCard = styled('section')`
     width: 100%;
+    max-width: 900px;
+    min-width: 250px;
     border: 1px solid #454545;
     border-radius: 8px;
-    margin-top: 16px;
+    margin: 0 16px 16px 0; 
+    padding: 16px;
+    box-sizing: border-box;
+
+    @media (max-width: 600px) {
+        padding: 12px;
+    }
 `
 
 export const Main = () => {
