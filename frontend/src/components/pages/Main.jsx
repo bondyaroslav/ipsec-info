@@ -81,6 +81,3 @@ export const Main = () => {
         </StyledMain>
     )
 }
-
-
-

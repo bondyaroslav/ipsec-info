@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, styled, Typography } from '@mui/material'
+import { styled, Typography } from '@mui/material'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import DoneIcon from '@mui/icons-material/Done';
 import { Notification } from '../atoms/Notification.jsx'
@@ -50,7 +50,9 @@ export const CodeBlock = ({ children }) => {
                 <Typography
                     component="pre"
                     sx={{ maxWidth: '100%', overflowX: 'auto' }}
-                >{children}</Typography>
+                >
+                    {children}
+                </Typography>
                 {isClicked ? <DoneIcon/> : <ContentCopyIcon />}
             </StyledCodeBlock>
         </>
