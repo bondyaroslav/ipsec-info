@@ -5,11 +5,14 @@ const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const { v4: uuidv4 } = require('uuid');
 const cors = require('cors');
+const csrf = require('csurf');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
+app.use(csrf());
 
 app.use(bodyParser.json());
 
@@ -45,7 +48,13 @@ app.post('/register', async (req, res) => {
     }
 });
 
-app.post('/login', async (req, res) => {
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 5,
+    message: 'Too many login attempts. Please try again later.',
+});
+
+app.post('/login', loginLimiter, async (req, res) => {
     try {
         const { userId, password } = req.body;
         if (!userId || !password) {

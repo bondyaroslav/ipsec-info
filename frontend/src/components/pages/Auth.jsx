@@ -41,7 +41,7 @@ export const Auth = () => {
             .post('http://localhost:5000/register', data)
             .then((response) => {
                 setUserId(response.data.userId)
-                showNotification('Registration successful!', 'success')
+                showNotification(response.data.message, 'success')
             })
             .catch(() => {
                 showNotification('Registration failed. Try again.', 'error')
@@ -55,8 +55,8 @@ export const Auth = () => {
         }
         axios
             .post('http://localhost:5000/login', data)
-            .then(() => {
-                showNotification('Login successful!', 'success')
+            .then((response) => {
+                showNotification(response.data.message, 'success')
             })
             .catch(() => {
                 showNotification('Login failed. Check your credentials.', 'error')
