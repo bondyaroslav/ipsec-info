@@ -6,15 +6,31 @@ const bodyParser = require('body-parser');
 const { v4: uuidv4 } = require('uuid');
 const cors = require('cors');
 const csrf = require('csurf');
+const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
-app.use(csrf());
-
+app.use(cors({ origin: true, credentials: true }));
 app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(
+    csrf({
+        cookie: {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+        },
+    })
+);
+
+app.use((err, req, res, next) => {
+    if (err.code === 'EBADCSRFTOKEN') {
+        return res.status(403).json({ error: 'Invalid CSRF token' });
+    }
+    next(err);
+});
 
 mongoose
     .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -27,6 +43,10 @@ const userSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model('User', userSchema);
+
+app.get('/csrf-token', (req, res) => {
+    res.status(200).json({ csrfToken: req.csrfToken() });
+});
 
 app.post('/register', async (req, res) => {
     try {
