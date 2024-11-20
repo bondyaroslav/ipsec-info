@@ -27,9 +27,10 @@ app.use(
 
 app.use((err, req, res, next) => {
     if (err.code === 'EBADCSRFTOKEN') {
-        return res.status(403).json({ error: 'Invalid CSRF token' });
+        res.status(403).json({ error: 'Invalid CSRF token' });
+    } else {
+        next(err);
     }
-    next(err);
 });
 
 mongoose

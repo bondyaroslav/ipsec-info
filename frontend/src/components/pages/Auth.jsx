@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { styled } from '@mui/material'
 import { AuthForm } from '../organisms/AuthForm.jsx'
 import { RegisterForm } from '../organisms/RegisterForm.jsx'
@@ -11,12 +11,25 @@ const StyledAuth = styled('main')`
     align-items: center;
 `
 
+axios.defaults.withCredentials = true
+
 export const Auth = () => {
     const [isAuth, setIsAuth] = useState(true)
     const [password, setPassword] = useState('')
     const [accountId, setAccountId] = useState('')
     const [userId, setUserId] = useState()
     const [notification, setNotification] = useState({ message: '', type: '' })
+    const [csrfToken, setCsrfToken] = useState('')
+
+    useEffect(() => {
+        axios.get('http://localhost:5000/csrf-token')
+            .then((response) => {
+                setCsrfToken(response.data.csrfToken)
+            })
+            .catch(() => {
+                showNotification('Failed to get CSRF token.', 'error')
+            })
+    }, [])
 
     const onPasswordChange = (value) => {
         setPassword(value)
@@ -38,7 +51,9 @@ export const Auth = () => {
     const registerNewUser = () => {
         const data = { password: password }
         axios
-            .post('http://localhost:5000/register', data)
+            .post('http://localhost:5000/register', data, {
+                headers: { 'X-CSRF-Token': csrfToken },
+            })
             .then((response) => {
                 setUserId(response.data.userId)
                 showNotification(response.data.message, 'success')
@@ -54,7 +69,9 @@ export const Auth = () => {
             password: password,
         }
         axios
-            .post('http://localhost:5000/login', data)
+            .post('http://localhost:5000/login', data, {
+                headers: { 'X-CSRF-Token': csrfToken },
+            })
             .then((response) => {
                 showNotification(response.data.message, 'success')
             })
