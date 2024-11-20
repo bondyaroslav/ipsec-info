@@ -14,9 +14,13 @@ const StyledButton = styled(Button)({
     },
 })
 
-export const CustomButton = ({ variant, color, name }) => {
+export const CustomButton = ({ variant, color, name, onClick, width }) => {
     return (
-        <StyledButton variant={variant} color={color}>
+        <StyledButton
+            variant={variant}
+            color={color}
+            onClick={onClick}
+        >
             {name}
         </StyledButton>
     )
