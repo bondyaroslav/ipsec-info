@@ -1,4 +1,3 @@
-import React from 'react'
 import Button from '@mui/material/Button'
 import { styled } from '@mui/material'
 
@@ -14,9 +13,13 @@ const StyledButton = styled(Button)({
     },
 })
 
-export const CustomButton = ({ variant, color, name }) => {
+export const CustomButton = ({ variant, color, name, onClick }) => {
     return (
-        <StyledButton variant={variant} color={color}>
+        <StyledButton
+            variant={variant}
+            color={color}
+            onClick={onClick}
+        >
             {name}
         </StyledButton>
     )
