@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { styled, Typography } from '@mui/material'
 
 const StyledNotification = styled('div')({

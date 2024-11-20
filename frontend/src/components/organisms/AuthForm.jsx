@@ -1,4 +1,3 @@
-import React from 'react'
 import { AccountInput } from '../molecules/AccountInput.jsx'
 import { CustomButton } from '../atoms/Button.jsx'
 import { styled, Box } from '@mui/material'

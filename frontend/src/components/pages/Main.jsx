@@ -1,4 +1,3 @@
-import React from 'react'
 import { ContentCard } from '../organisms/ContentCard.jsx'
 import { InfoCard } from '../molecules/InfoCard.jsx'
 import { CodeBlock } from '../molecules/CodeBlock.jsx'
