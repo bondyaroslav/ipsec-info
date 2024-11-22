@@ -13,22 +13,32 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-    origin: ['https://ipsec-info.onrender.com', 'http://localhost:5173'],
+    origin: ['https://ipsec-info.onrender.com', 'https://ipsec-info.vercel.app', 'http://localhost:5173'],
     credentials: true,
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'X-CSRF-Token'],
 }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+
 app.use(
     csrf({
         cookie: {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
-        },
+            sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
+        }
     })
 );
 
+app.use((req, res, next) => {
+    console.log('CSRF token in cookie:', req.cookies._csrf);
+    console.log('CSRF token in header:', req.headers['x-csrf-token']);
+    next();
+});
+
 app.use((err, req, res, next) => {
+    console.error('Error:', err.message);
     if (err.code === 'EBADCSRFTOKEN') {
         res.status(403).json({ error: 'Invalid CSRF token' });
     } else {

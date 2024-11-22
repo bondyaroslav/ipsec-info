@@ -21,14 +21,19 @@ export const Auth = () => {
     const [notification, setNotification] = useState({ message: '', type: '' })
     const [csrfToken, setCsrfToken] = useState('')
 
+    const getCsrfToken = async () => {
+        try {
+            const response = await axios.get('https://ipsec-info.onrender.com/csrf-token', {
+                withCredentials: true,
+            })
+            setCsrfToken(response.data.csrfToken)
+        } catch (error) {
+            showNotification(error, 'error')
+        }
+    }
+
     useEffect(() => {
-        axios.get('http://localhost:5000/csrf-token')
-            .then((response) => {
-                setCsrfToken(response.data.csrfToken)
-            })
-            .catch(() => {
-                showNotification('Failed to get CSRF token.', 'error')
-            })
+        getCsrfToken()
     }, [])
 
     const onPasswordChange = (value) => {
@@ -51,8 +56,9 @@ export const Auth = () => {
     const registerNewUser = () => {
         const data = { password: password }
         axios
-            .post('http://localhost:5000/register', data, {
+            .post('https://ipsec-info.onrender.com/register', data, {
                 headers: { 'X-CSRF-Token': csrfToken },
+                withCredentials: true,
             })
             .then((response) => {
                 setUserId(response.data.userId)
@@ -69,7 +75,7 @@ export const Auth = () => {
             password: password,
         }
         axios
-            .post('http://localhost:5000/login', data, {
+            .post('https://ipsec-info.onrender.com/login', data, {
                 headers: { 'X-CSRF-Token': csrfToken },
             })
             .then((response) => {
