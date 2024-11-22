@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-    origin: ['https://ipsec-info.onrender.com', 'https://ipsec-info.vercel.app', 'http://localhost:5173'],
+    origin: ['https://ipsec-info.onrender.com', 'https://ipsec-info-gl6k76tmt-bondyaroslavs-projects.vercel.app', 'http://localhost:5173'],
     credentials: true,
     methods: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'X-CSRF-Token'],
@@ -26,7 +26,7 @@ app.use(
         cookie: {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: process.env.NODE_ENV === 'Lax',
+            sameSite: 'None',
         }
     })
 );
