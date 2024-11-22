@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-    origin: ['https://ipsec-info-as1lnx4rq-bondyaroslavs-projects.vercel.app', 'http://localhost:5173'],
+    origin: ['https://ipsec-info.onrender.com', 'http://localhost:5173'],
     credentials: true,
 }));
 app.use(bodyParser.json());
